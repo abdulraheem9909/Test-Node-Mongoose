@@ -9,6 +9,7 @@ const userSchema = new Schema({
   age: Number,
   gender: String,
   feesPaid: Boolean,
+  images:String
 });
 const userModal = mongoose.model("User", userSchema);
 
