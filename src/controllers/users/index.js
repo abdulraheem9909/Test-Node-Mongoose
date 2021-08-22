@@ -1,13 +1,22 @@
 const userModal = require("../../modals/users");
 
 const create = async (req, res) => {
+  let response;
   try {
     const body = req.body;
     const data = new userModal(body);
     const dataAdded = await data.save();
-    res.status(201).send(dataAdded);
+    response = {
+      message: "operation Successfull",
+      dataAdded,
+    };
+    res.status(201).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    response = {
+      message: "operation Failed",
+      error,
+    };
+    res.status(400).send(response);
   }
 };
 const getAll = async (req, res) => {
@@ -28,31 +37,57 @@ const getAll = async (req, res) => {
   }
 };
 const getSingle = async (req, res) => {
+  let response;
   try {
     const _id = req.params.id;
     const data = await userModal.findById({ _id });
-    res.status(200).send(data);
+    response = {
+      message: "operation Successfull",
+      data,
+    };
+    res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    response = {
+      message: "operation Failed",
+      error,
+    };
+    res.status(400).send(response);
   }
 };
 const update = async (req, res) => {
+  let response;
   try {
     const data = await userModal.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.status(200).send(data);
+    response = {
+      message: "operation Successfull",
+      data,
+    };
+    res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    response = {
+      message: "operation Failed",
+      error,
+    };
+    res.status(400).send(response);
   }
 };
 const deleteById = async (req, res) => {
+  let response;
   try {
     const data = await userModal.findByIdAndDelete(req.params.id);
-    res.status(200).send(data);
+    response = {
+      message: "operation Successfull",
+      data,
+    };
+    res.status(200).send(response);
   } catch (error) {
-    console.log(error);
-    res.status(500).send(error);
+    response = {
+      message: "operation Failed",
+      error,
+    };
+    res.status(500).send(response);
   }
 };
 
